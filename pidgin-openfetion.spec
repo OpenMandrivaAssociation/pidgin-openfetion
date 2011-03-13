@@ -1,7 +1,7 @@
 Summary: libpurple plugin powered by libofetion
 Name: pidgin-openfetion
 Version: 0.1
-Release: %mkrel 1
+Release: %mkrel 2
 Group: Networking/Instant messaging
 License: GPLv2+
 URL: http://code.google.com/p/ofetion/
