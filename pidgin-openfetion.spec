@@ -1,11 +1,11 @@
 Summary: libpurple plugin powered by libofetion
 Name: pidgin-openfetion
-Version: 0.1
-Release: %mkrel 2
+Version: 0.2
+Release: 1
 Group: Networking/Instant messaging
 License: GPLv2+
 URL: http://code.google.com/p/ofetion/
-Source0: http://ofetion.googlecode.com/files/%{name}-%{version}.tar.gz
+Source0: http://ofetion.googlecode.com/files/pidgin-ofetion-%{version}.tar.gz
 Patch0: pidgin-openfetion-0.1-pidgin-prefix.patch
 BuildRoot: %{_tmppath}/%{name}-root
 BuildRequires: pidgin-devel
@@ -18,7 +18,7 @@ libpurple plugin powered by libofetion.
 
 
 %prep
-%setup -qn %name-%version
+%setup -qn pidgin-ofetion-%version
 %patch0 -p0 -b .prefix
 
 %build
