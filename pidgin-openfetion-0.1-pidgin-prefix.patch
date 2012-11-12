@@ -1,0 +1,47 @@
+--- CMakeLists.txt.prefix	2011-01-15 14:50:51.000000000 +0100
++++ CMakeLists.txt	2011-03-13 14:07:44.000000000 +0100
+@@ -26,6 +26,7 @@
+ PKG_CHECK_MODULES(LIBXML2 REQUIRED libxml-2.0)
+ PKG_CHECK_MODULES(OPENSSL REQUIRED openssl)
+ PKG_CHECK_MODULES(PURPLE REQUIRED  purple)
++PKG_CHECK_MODULES(PIDGIN REQUIRED  pidgin)
+ 
+ option(NLS "Native language support" ON)
+ if(NLS)
+@@ -44,20 +45,19 @@
+ 	)
+ 
+ TARGET_LINK_LIBRARIES(libopenfetion
+-   					${LIBXML_LIBRARIES}
++   					${LIBXML2_LIBRARIES}
+ 					${OPENSSL_LIBRARIES}
+ 					${PURPLE_LIBRARIES}
+ 					)
+ 
+-EXEC_PROGRAM("whereis libpurple| sed -e 's/[^\\/]*//' -e 's/\\(.*\\)lib\\/libpurple\\.so.*/\\1/'"
+-			OUTPUT_VARIABLE PURPLE_PREFIX)
++set(PURPLE_PLUGIN_DIR "")
++execute_process(COMMAND ${PKG_CONFIG_EXECUTABLE} --variable=plugindir purple OUTPUT_VARIABLE PURPLE_PLUGIN_DIR OUTPUT_STRIP_TRAILING_WHITESPACE)
++if(NOT PURPLE_PLUGIN_DIR)
++	set(PURPLE_PLUGIN_DIR ${PURPLE_LIBDIR}/purple-2)
++endif(NOT PURPLE_PLUGIN_DIR)
+ 
+-EXEC_PROGRAM("whereis pidgin | sed -e 's/[^\\/]*//' -e 's/\\(.*\\)bin\\/pidgin.*/\\1/'"
+-			OUTPUT_VARIABLE PIDGIN_PREFIX)
+-
+-SET(PIDGIN_PIX_INSTALL_DIR "${PIDGIN_PREFIX}share/pixmaps/pidgin/protocols/16/")
+-SET(RES_INSTALL_DIR "${PURPLE_PREFIX}share/purple/openfetion/")
+-SET(LIB_INSTALL_DIR "${PURPLE_PREFIX}lib/purple-${PURPLE_MAJOR_VERSION}")
++SET(PIDGIN_PIX_INSTALL_DIR "${PIDGIN_PREFIX}/share/pixmaps/pidgin/protocols/16/")
++SET(RES_INSTALL_DIR "${PURPLE_PREFIX}/share/purple/openfetion/")
+ SET(LOCALE_INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/share/locale/")
+ 
+ ADD_DEFINITIONS(-DRES_DIR="${RES_INSTALL_DIR}")
+@@ -75,6 +75,6 @@
+ 	gettext_create_translations("${CMAKE_CURRENT_SOURCE_DIR}/po/pidgin-ofetion.pot" ALL ${POFILES})
+ endif(NLS AND GETTEXT_FOUND)
+ 
+-INSTALL(TARGETS libopenfetion DESTINATION ${LIB_INSTALL_DIR})
++INSTALL(TARGETS libopenfetion LIBRARY DESTINATION ${PURPLE_PLUGIN_DIR})
+ INSTALL(FILES ${ICON_FILE} DESTINATION ${PIDGIN_PIX_INSTALL_DIR})
+ INSTALL(FILES ${RES_FILE} DESTINATION ${RES_INSTALL_DIR})
