@@ -39,3 +39,15 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/purple-2/libopenfetion.so
 %{_datadir}/pixmaps/pidgin/protocols/16/openfetion.png
 %{_datadir}/purple/openfetion
+
+
+%changelog
+* Wed Jun 08 2011 Funda Wang <fwang@mandriva.org> 0.2-1
++ Revision: 683142
+- new version 0.2
+
+* Sun Mar 13 2011 Funda Wang <fwang@mandriva.org> 0.1-2
++ Revision: 644364
+- fix typo of xml libs
+- import pidgin-openfetion
+
