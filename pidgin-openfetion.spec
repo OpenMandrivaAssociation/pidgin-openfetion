@@ -4,7 +4,7 @@ Version: 0.2
 Release: 1
 Group: Networking/Instant messaging
 License: GPLv2+
-URL: http://code.google.com/p/ofetion/
+URL: https://code.google.com/p/ofetion/
 Source0: http://ofetion.googlecode.com/files/pidgin-ofetion-%{version}.tar.gz
 Patch0: pidgin-openfetion-0.1-pidgin-prefix.patch
 BuildRoot: %{_tmppath}/%{name}-root
